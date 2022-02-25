@@ -1,0 +1,27 @@
+.App {
+  text-align: center;
+  margin: 0 auto;
+  background-color: cornflowerblue;
+  width: 250px;
+  height: 250px;
+  border-radius: 15px;
+}
+
+.Count {
+  font-size: 150px;
+}
+
+.Count-active {
+  color: red;
+  font-size: 150px;
+}
+
+.Buttons {
+  background-color: darkcyan;
+  border-radius: 10px;
+  margin-left: 50px;
+  width: 150px;
+  height: 25px;
+}
+
+
