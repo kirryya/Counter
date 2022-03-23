@@ -1,38 +1,56 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import Display from "./Display";
 import Button from "./Buttons";
 import s from "./App.module.css"
 
 function App() {
 
-    let countStart = 0
-    let countMax = 10
+    const [count, setCount] = useState<number>(0);
+    const [start, setStart] = useState<number>(0)
+    const [max, setMax] = useState<number>(5);
 
-    const [count, setCount] = useState<number>(countStart);
-    const [start, setStart] = useState<number>(countStart)
-    const [max, setMax] = useState<number>(countMax);
+    useEffect(() => {
+        localStorage.setItem('startValue', JSON.stringify(start))
+    }, [start])
 
-    countStart = start
-    countMax = max
+    useEffect(() => {
+        localStorage.setItem('maxValue', JSON.stringify(max))
+    }, [max])
+
+    useEffect(() => {
+        let startAsString = localStorage.getItem('startValue')
+        if (startAsString) {
+            let newStart = JSON.parse(startAsString)
+            setStart(newStart)
+        }
+    }, [])
+
+    useEffect(() => {
+        let maxAsString = localStorage.getItem('maxValue')
+        if (maxAsString) {
+            let newMax = JSON.parse(maxAsString)
+            setMax(newMax)
+        }
+    }, [])
 
     const onClickInc = () => {
-        if (count < countMax) {
+        if (count < max) {
             setCount(count + 1)
         }
     }
 
     const onClickReset = () => {
-        setCount(countStart)
-    }
-
-    const setStartValue = (e: ChangeEvent<HTMLInputElement>) => {
-        let titleStart = Number(e.currentTarget.value)
-        setStart(titleStart)
+        setCount(start)
     }
 
     const setMaxValue = (e: ChangeEvent<HTMLInputElement>) => {
         let titleMax = Number(e.currentTarget.value)
         setMax(titleMax)
+    }
+
+    const setStartValue = (e: ChangeEvent<HTMLInputElement>) => {
+        let titleStart = Number(e.currentTarget.value)
+        setStart(titleStart)
     }
 
     const setCounts = () => {
@@ -53,13 +71,13 @@ function App() {
         <div className={s.App}>
             <div>
                 <div className={s.EnterDisplay}>
-                    <div className={error ? s.InputMaxError : s.InputMax}>
-                        <span>max value: </span>
-                        <input type={"number"} value={countMax} onChange={setMaxValue}/>
-                    </div>
                     <div className={error ? s.InputStartError : s.InputStart}>
                         <span>start value: </span>
-                        <input type={"number"} value={countStart} onChange={setStartValue}/>
+                        <input type={"number"} value={start} onChange={setStartValue}/>
+                    </div>
+                    <div className={error ? s.InputMaxError : s.InputMax}>
+                        <span>max value: </span>
+                        <input type={"number"} value={max} onChange={setMaxValue}/>
                     </div>
                 </div>
                 <div className={s.Buttons}>
@@ -68,7 +86,8 @@ function App() {
             </div>
             <div className={s.Display}>
                 <div className={count === max ? s.CountActive : s.Count}>
-                    {error ? <div style={{fontSize:"large", color:"red"}}>{errorMessage}</div> : <Display count={count}/>}
+                    {error ? <div style={{fontSize: "large", color: "red"}}>{errorMessage}</div> :
+                        <Display count={count}/>}
                 </div>
                 <div className={s.Buttons}>
                     <Button className={s.button} disabled={disableInc} name={"inc"} callback={onClickInc}/>
