@@ -5,9 +5,12 @@ import s from "./App.module.css"
 
 function App() {
 
-    const [count, setCount] = useState<number>(0);
-    const [start, setStart] = useState<number>(0)
-    const [max, setMax] = useState<number>(5);
+    const startCount = 0
+    const maxCount = 5
+
+    const [count, setCount] = useState<number>(startCount);
+    const [start, setStart] = useState<number>(startCount)
+    const [max, setMax] = useState<number>(maxCount);
 
     useEffect(() => {
         localStorage.setItem('startValue', JSON.stringify(start))
@@ -44,12 +47,12 @@ function App() {
     }
 
     const setMaxValue = (e: ChangeEvent<HTMLInputElement>) => {
-        let titleMax = Number(e.currentTarget.value)
+        let titleMax = JSON.parse(e.currentTarget.value)
         setMax(titleMax)
     }
 
     const setStartValue = (e: ChangeEvent<HTMLInputElement>) => {
-        let titleStart = Number(e.currentTarget.value)
+        let titleStart = JSON.parse(e.currentTarget.value)
         setStart(titleStart)
     }
 

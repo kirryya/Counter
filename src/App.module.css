@@ -17,9 +17,11 @@
 .InputMax {
     color: #880000;
     font-size: x-large;
-
 }
+
 .InputMaxError {
+    color: red;
+    font-size: x-large;
 
 }
 
@@ -28,7 +30,8 @@
     font-size: x-large;
 }
 .InputStartError {
-
+    color: red;
+    font-size: x-large;
 }
 
 .Display {
