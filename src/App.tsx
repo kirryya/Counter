@@ -58,9 +58,9 @@ function App() {
     }
 
 
-    const error = start === max || max < start
+    const error = start === max || max < start || max < 0 || start < 0
 
-    const disableSet = start === max || max < start
+    const disableSet = error
     const disableInc = max === count || disableSet
     const disableReset = start === count || disableSet
 
