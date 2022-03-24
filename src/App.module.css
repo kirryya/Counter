@@ -15,7 +15,7 @@
 }
 
 .InputMax {
-    color: #880000;
+    color: cadetblue;
     font-size: x-large;
 }
 
@@ -23,15 +23,17 @@
     color: red;
     font-size: x-large;
 
+
 }
 
 .InputStart {
-    color: yellowgreen;
+    color: cadetblue;
     font-size: x-large;
 }
 .InputStartError {
     color: red;
     font-size: x-large;
+
 }
 
 .Display {

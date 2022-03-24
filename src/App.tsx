@@ -12,13 +12,6 @@ function App() {
     const [start, setStart] = useState<number>(startCount)
     const [max, setMax] = useState<number>(maxCount);
 
-    useEffect(() => {
-        localStorage.setItem('startValue', JSON.stringify(start))
-    }, [start])
-
-    useEffect(() => {
-        localStorage.setItem('maxValue', JSON.stringify(max))
-    }, [max])
 
     useEffect(() => {
         let startAsString = localStorage.getItem('startValue')
@@ -58,6 +51,8 @@ function App() {
 
     const setCounts = () => {
         setCount(start)
+        localStorage.setItem('maxValue', JSON.stringify(max))
+        localStorage.setItem('startValue', JSON.stringify(start))
     }
 
 
