@@ -1,7 +1,10 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
-import Display from "./Display";
-import Button from "./Buttons";
+import Display from "./components/Display";
+import Button from "./components/Button";
 import s from "./App.module.css"
+import InputForm from './components/InputForm';
+import InputPart from './components/InputPart';
+import DisplayPart from './components/DisplayPart';
 
 function App() {
 
@@ -55,42 +58,27 @@ function App() {
         localStorage.setItem('startValue', JSON.stringify(start))
     }
 
-
     const error = start === max || max < start || max < 0 || start < 0
-
-    const disableSet = error
-    const disableInc = max === count || disableSet
-    const disableReset = start === count || disableSet
-
-    const errorMessage = "Введите корректные данные"
-
 
     return (
         <div className={s.App}>
             <div>
-                <div className={s.EnterDisplay}>
-                    <div className={error ? s.InputStartError : s.InputStart}>
-                        <span>start value: </span>
-                        <input type={"number"} value={start} onChange={setStartValue}/>
-                    </div>
-                    <div className={error ? s.InputMaxError : s.InputMax}>
-                        <span>max value: </span>
-                        <input type={"number"} value={max} onChange={setMaxValue}/>
-                    </div>
-                </div>
-                <div className={s.Buttons}>
-                    <Button className={s.button} disabled={disableSet} name={"set"} callback={setCounts}/>
-                </div>
+                <InputPart error={error}
+                           startvalue={start}
+                           setStartValue={setStartValue}
+                           maxvalue={max}
+                           setMaxValue={setMaxValue}
+                           setCounts={setCounts}
+                />
             </div>
             <div className={s.Display}>
-                <div className={count === max ? s.CountActive : s.Count}>
-                    {error ? <div style={{fontSize: "large", color: "red"}}>{errorMessage}</div> :
-                        <Display count={count}/>}
-                </div>
-                <div className={s.Buttons}>
-                    <Button className={s.button} disabled={disableInc} name={"inc"} callback={onClickInc}/>
-                    <Button className={s.button} disabled={disableReset} name={"reset"} callback={onClickReset}/>
-                </div>
+                <DisplayPart error={error}
+                             count={count}
+                             max={max}
+                             start={start}
+                             onClickInc={onClickInc}
+                             onClickReset={onClickReset}
+                />
             </div>
         </div>
     );
