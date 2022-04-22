@@ -58,26 +58,25 @@ function App() {
         localStorage.setItem('startValue', JSON.stringify(start))
     }
 
-    const error = start === max || max < start || max < 0 || start < 0
 
     return (
         <div className={s.App}>
             <div>
-                <InputPart error={error}
-                           startvalue={start}
-                           setStartValue={setStartValue}
-                           maxvalue={max}
-                           setMaxValue={setMaxValue}
-                           setCounts={setCounts}
+                <InputPart
+                    start={start}
+                    max={max}
+                    setStartValue={setStartValue}
+                    setMaxValue={setMaxValue}
+                    setCounts={setCounts}
                 />
             </div>
             <div className={s.Display}>
-                <DisplayPart error={error}
-                             count={count}
-                             max={max}
-                             start={start}
-                             onClickInc={onClickInc}
-                             onClickReset={onClickReset}
+                <DisplayPart
+                    count={count}
+                    start={start}
+                    max={max}
+                    onClickInc={onClickInc}
+                    onClickReset={onClickReset}
                 />
             </div>
         </div>

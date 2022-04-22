@@ -4,7 +4,6 @@ import Button from './Button';
 import Display from './Display';
 
 type DisplayPartType = {
-    error: boolean
     count: number
     max: number
     start: number
@@ -12,19 +11,23 @@ type DisplayPartType = {
     onClickReset: () => void
 }
 
-const errorMessage = "Введите корректные данные"
+
 
 const DisplayPart = (props: DisplayPartType) => {
+
+    const error = props.start === props.max || props.max < props.start || props.max < 0 || props.start < 0
+    const errorMessage = "Введите корректные данные"
+
     return (
         <div>
             <div className={props.count === props.max ? s.CountActive : s.Count}>
-                {props.error ?
+                {error ?
                     <div style={{fontSize: "large", color: "red"}}>{errorMessage}</div>
                     : <Display count={props.count}/>}
             </div>
             <div className={s.Buttons}>
-                <Button className={s.button} disabled={props.max === props.count || props.error} name={"inc"} callback={props.onClickInc}/>
-                <Button className={s.button} disabled={props.start === props.count || props.error} name={"reset"} callback={props.onClickReset}/>
+                <Button className={s.button} disabled={props.max === props.count || error} name={"inc"} callback={props.onClickInc}/>
+                <Button className={s.button} disabled={props.start === props.count || error} name={"reset"} callback={props.onClickReset}/>
             </div>
         </div>
     );
